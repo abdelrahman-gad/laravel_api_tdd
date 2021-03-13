@@ -41,4 +41,20 @@ class ProductControllerTest extends TestCase
             'price' => $price 
         ] );
     }
+
+    public function test_can_return_a_product(){
+        // given 
+           $product  = $this->create('Product');
+        // when 
+           $response = $this->json('GET','api/products/'.$product->id); 
+         // then
+           $response->assertStatus(201)
+                    ->assertExactJson([
+                        'id'=>$product->id,
+                        'name' =>$product->name,
+                        'slug' => $product->slug,
+                        'price'=>$product->price,
+                        'created_at' =>$product->created_at
+                    ]);
+    }
 }
