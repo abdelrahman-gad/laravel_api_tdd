@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Http\Resources\Product as ProductResource;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,6 +16,6 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'price' =>$request->price
         ]);
-        return response()->json($product, 201);
+        return response()->json(new  ProductResource( $product) , 201);
     }
 }

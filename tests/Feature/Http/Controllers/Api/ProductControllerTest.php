@@ -24,8 +24,9 @@ class ProductControllerTest extends TestCase
            'slug' => Str::slug($name),
            'price' => $price =random_int(10,200)
         ]);
+        \Log::info(1, [$response->getContent()] );
 
-        // Then  : product exists in d
+        // Then  : product exists in database
         $response->assertJsonStructure(['id','name','slug','price','created_at'])->assertJson(
             [ 
             'name' => $name ,
