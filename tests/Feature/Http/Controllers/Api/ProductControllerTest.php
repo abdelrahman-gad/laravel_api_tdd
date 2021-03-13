@@ -8,6 +8,7 @@ use Tests\TestCase;
 use Illuminate\Support\Str;
 class ProductControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
