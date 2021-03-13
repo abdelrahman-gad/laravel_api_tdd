@@ -68,4 +68,22 @@ class ProductControllerTest extends TestCase
         $response = $this->json('PUT', 'api/products/-1');
         $response->assertStatus(404);
     }
+
+    public function test_can_update_a_product(){
+        $product = $this->create('Product');
+        $response =$this->json('PUT','api/products/'.$product->id,[
+            'name' =>$product->name.'_updated',
+            'slug' =>Str::slug( $product->name.'_updated'),
+            'price'=>(int) $product->price + 10
+        ]);
+        $response->assertStatus(200);
+
+        $response->assertExactJson([
+            'id' => $product->id,
+            'name' =>$product->name.'_updated',
+            'slug' =>Str::slug( $product->name.'_updated'),
+            'price'=> (int) $product->price +10,
+            'created_at' =>  $product->created_at
+        ]);
+    }
 }
