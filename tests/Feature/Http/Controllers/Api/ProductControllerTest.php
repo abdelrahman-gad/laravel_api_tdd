@@ -57,4 +57,9 @@ class ProductControllerTest extends TestCase
                         'created_at' =>$product->created_at
                     ]);
     }
+
+    public function test_will_fail_with_404_product_is_not_found(){
+        $response = $this->json('GET', 'api/products/-1');
+        $response->assertStatus(404);
+    }
 }
