@@ -63,4 +63,9 @@ class ProductControllerTest extends TestCase
         $response = $this->json('GET', 'api/products/-1');
         $response->assertStatus(404);
     }
+
+    public function test_will_fail_with_404_if_user_product_we_want_to_update_is_not_found(){
+        $response = $this->json('PUT', 'api/products/-1');
+        $response->assertStatus(404);
+    }
 }
