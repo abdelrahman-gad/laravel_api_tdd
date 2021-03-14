@@ -98,4 +98,18 @@ class ProductControllerTest extends TestCase
         $this->assertDatabaseMissing('products', ['id',$product->id]);
     }
 
+    public function test_can_return_a_collection_of_paginated_products(){
+        $product1 = $this->create('Product');
+        $product2 = $this->create('Product');
+        $product3 = $this->create('Product');
+        $response = $this->Json('GET','/api/products');
+        $response->assertStatus(200)
+                 ->assertJsonStructure([
+                     'data'=>[
+                        '*'=> [ 'id','name','slug','price','created_at']
+                     ],
+                     'links' => ['first','last','prev','next'],
+                     'meta' => ['current_page','last_page','from','to','path','per_page','total']
+                 ]);
+    }
 }
